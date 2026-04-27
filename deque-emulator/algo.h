@@ -1,8 +1,7 @@
 #pragma once
 
 #include <deque>
-#include <algorithm>
-#include <iterator>
+
 template<class T, class Comp>
 std::deque<T> Merge(const std::deque<T>& half1, const std::deque<T>& half2, const Comp& comparator) {
         std::deque<T> result;
