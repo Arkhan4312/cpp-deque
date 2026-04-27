@@ -90,13 +90,11 @@ void MainWindow::on_pb_pop_back_clicked() {
     ApplyModel();
 }
 
-
 void MainWindow::on_pb_push_back_clicked() {
     deque_model_.items.push_back(ui->txt_elem_content->text().toStdString());
     deque_model_.iterator = deque_model_.items.begin();
     ApplyModel();
 }
-
 
 void MainWindow::on_pb_clear_clicked() {
     deque_model_.items.clear();
@@ -104,13 +102,11 @@ void MainWindow::on_pb_clear_clicked() {
     ApplyModel();
 }
 
-
 void MainWindow::on_pb_preset_tea_clicked() {
     deque_model_.items = tea;
     deque_model_.iterator = deque_model_.items.begin();
     ApplyModel();
 }
-
 
 void MainWindow::on_pb_preset_cakes_clicked() {
     deque_model_.items = cakes;
