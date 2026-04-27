@@ -1,9 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include <QFileDialog>
-#include <QFile>
-#include <QTextStream>
 #include "algo.h"
 
 constexpr size_t MAX_DEQUE_SIZE = 1000;
