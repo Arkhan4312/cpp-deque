@@ -1,11 +1,13 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include <QMessageBox>
 #include <QFileDialog>
 #include <QFile>
 #include <QTextStream>
 #include "algo.h"
+
+constexpr size_t MAX_DEQUE_SIZE = 1000;
+constexpr size_t MIN_DEQUE_SIZE = 0;
 
 static std::deque<std::string> tea {
     "Чай Лунцзин",
@@ -158,9 +160,16 @@ void MainWindow::on_pb_edit_clicked() {
 }
 
 void MainWindow::on_pb_resize_clicked() {
-    deque_model_.items.resize(ui->txt_size->text().toInt());
+    bool correct;
+    size_t new_size = ui->txt_size->text().toInt(&correct);
+    if (!correct || new_size > MAX_DEQUE_SIZE || new_size < MIN_DEQUE_SIZE) {
+        ui->txt_size->setText(QString::number(deque_model_.items.size()));
+        return;
+    }
+    deque_model_.items.resize((new_size));
     deque_model_.iterator = deque_model_.items.begin();
     ApplyModel();
+
 }
 
 void MainWindow::on_pb_find_clicked() {
@@ -183,9 +192,7 @@ void MainWindow::on_pb_max_element_clicked() {
 }
 
 void MainWindow::on_pb_sort_clicked() {
-    deque_model_.items = MergeSort(deque_model_.items,[](const std::string& a, const std::string& b) {
-        return QString::compare(QString::fromStdString(a),QString::fromStdString(b)) < 0;
-    });
+    deque_model_.items = MergeSort(deque_model_.items,std::less<std::string>());
     deque_model_.iterator = deque_model_.items.begin();
     ApplyModel();
 }
@@ -196,7 +203,6 @@ void MainWindow::on_pb_sort_any_clicked() {
     });
     deque_model_.iterator = deque_model_.items.begin();
     ApplyModel();
-
 }
 
 void MainWindow::on_pb_unique_clicked() {
